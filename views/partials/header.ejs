@@ -1,0 +1,29 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title><%= pageTitle %></title>
+  <link rel="stylesheet" type="text/css" href="/styles/style.css" />
+</head>
+
+<body>
+  <header>
+    <h1>My App</h1>
+  </header>
+
+  <nav>
+    <ul>
+      <li><a href="/">Home</a></li>
+      <% if (isAdmin) { %>
+      <li><a href="/admin">Admin</a></li>
+      <% } %> <% if (!user) { %>
+      <li><a href="/login">Login</a></li>
+      <li><a href="/register">Register</a></li>
+      <% } else { %>
+      <li><a href="/logout">Logout</a></li>
+      <% } %>
+    </ul>
+  </nav>
+
+  <main>

@@ -1,0 +1,13 @@
+<% let a = 0; %>
+<div class="article-container">
+  <div class="article">
+    <h2>Welcome to My App</h2>
+    <a href="/images/upload">Upload an Image</a>
+  </div>
+  <% images.forEach(image => { if (a >= 10) return; a = a + 1; %>
+    <div class="article">
+      <p><%= image.title %></p>
+      <img src="<%= image.path %>" alt="<%= image.title %>" />
+    </div>
+  <% }); %>
+</div>
