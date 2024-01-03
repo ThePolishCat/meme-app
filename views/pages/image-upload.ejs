@@ -1,12 +1,14 @@
-<h2>Image Upload</h2>
-<form action="/images/upload" method="post" enctype="multipart/form-data">
-  <div>
-    <label for="title">Title:</label>
-    <input type="text" id="title" name="title" required />
-  </div>
-  <div>
-    <label for="image">Select Image:</label>
-    <input type="file" id="image" name="image" accept="image/*" required />
-  </div>
-  <button type="submit">Upload Image</button>
-</form>
+<div class = "auth">
+  <h2>Image Upload</h2>
+  <form action="/images/upload" method="post" enctype="multipart/form-data">
+    <div>
+      <label for="title">Title:</label>
+      <input type="text" id="title" name="title" required />
+    </div>
+    <div>
+      <label for="image">Select Image:</label>
+      <input type="file" id="image" name="image" accept="image/*" required />
+    </div>
+    <button type="submit">Upload Image</button>
+  </form>
+</div>
