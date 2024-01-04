@@ -48,27 +48,50 @@ router.post("/upload", isUser, upload.single("image"), async (req, res) => {
 });
 
 router.post("/vote", async (req, res) => {
-  const { imageId, vote } = req.body;
   try {
-    const image = await Image.findOne({ id: imageId });
+    const { imageId, vote } = req.body;
+    const userId = req.session.user._id;
 
-    if (!image) {
-      return res.status(404).send("Image not found");
+    // Check if the user has already voted for this image
+    const hasVoted = await Image.exists({
+      _id: imageId,
+      voters: userId,
+    });
+
+    if (!hasVoted) {
+      // Update vote counts and add user to the voters array
+      const update = {
+        $inc: { [vote === "plus" ? "upvotes" : "downvotes"]: 1 },
+        $push: { voters: userId },
+      };
+
+      const updatedImage = await Image.findByIdAndUpdate(imageId, update, {
+        new: true,
+      });
+
+      res.json({
+        upvotes: updatedImage.upvotes,
+        downvotes: updatedImage.downvotes,
+      });
+    } else {
+      const update = {
+        $inc: { [vote === "plus" ? "upvotes" : "downvotes"]: 1 },
+        $inc: { [vote === "plus" ? "downvotes" : "upvotes"]: -1 },
+        $push: { voters: userId },
+      };
+
+      const updatedImage = await Image.findByIdAndUpdate(imageId, update, {
+        new: true,
+      });
+
+      res.json({
+        upvotes: updatedImage.upvotes,
+        downvotes: updatedImage.downvotes,
+      });
     }
-
-    if (vote === "plus") {
-      // Handle upvote logic
-      image.upvotes = (image.upvotes || 0) + 1;
-    } else if (vote === "minus") {
-      // Handle downvote logic
-      image.downvotes = (image.downvotes || 0) + 1;
-    }
-
-    await image.save();
-    res.status(200).json({ upvotes: image.upvotes, downvotes: image.downvotes });
   } catch (error) {
     console.error(error);
-    res.status(500).send("Internal Server Error");
+    res.status(500).json({ error: "Internal Server Error" });
   }
 });
 

@@ -27,7 +27,13 @@ const imageSchema = new mongoose.Schema({
   downvotes:{
     type: Number,
     default: 0
-  }
+  },
+  voters: [
+    {
+      type: mongoose.Schema.Types.ObjectId,
+      ref: "User",
+    },
+  ],
 });
 
 imageSchema.statics.deleteById = async function (imageId) {
