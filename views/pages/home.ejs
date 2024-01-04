@@ -1,9 +1,5 @@
 <% let a = 0; %>
 <div class="article-container">
-  <div class="article">
-    <p>Welcome to My App</p>
-    <a href="/images/upload">Upload an Image</a>
-  </div>
   <% images.forEach(image => { if (a >= 10) return; a = a + 1; %>
   <div class="article">
     <p><%= image.title %></p>
