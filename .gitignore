@@ -130,7 +130,7 @@ dist
 .pnp.*
 
 package-lock.json
-
+public/uploads/image-*
 # replit
 .replit
 replit.nix
