@@ -14,6 +14,9 @@ body {
   line-height: 1.6;
   background-color: rgb(30, 33, 34);
 }
+h1 {
+  font-size: clamp(22px, 2.5vw, 30px);
+}
 
 h2,
 p {
@@ -121,16 +124,25 @@ img {
   padding-bottom: 9px;
 }
 
-.article img {  
+.article img {
   width: 100%;
   height: auto;
   max-width: 100%;
 }
 
 .article p {
-  font-size: 18px;
+  font-size: clamp(15px, 2vw, 18px);
 }
 
-.auth form{
+.form {
   color: white;
+}
+.pagination {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  padding: 10px;
+}
+.pagination a{
+  margin-right: 5px; 
 }
