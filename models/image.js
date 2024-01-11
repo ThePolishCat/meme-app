@@ -2,7 +2,7 @@ const mongoose = require("mongoose");
 const fs = require("fs");
 const path = require("path");
 
-const imageSchema = new mongoose.Schema({
+const postSchema = new mongoose.Schema({
   title: {
     type: String,
     required: true,
@@ -36,7 +36,7 @@ const imageSchema = new mongoose.Schema({
   ],
 });
 
-imageSchema.statics.deleteById = async function (imageId) {
+postSchema.statics.deleteById = async function (imageId) {
   const image = await this.findOne({ id: imageId });
   if (!image) {
     throw new Error("Image not found");
@@ -46,4 +46,4 @@ imageSchema.statics.deleteById = async function (imageId) {
   return this.deleteOne({ id: imageId });
 };
 
-module.exports = mongoose.model("Image", imageSchema);
+module.exports = mongoose.model("Image", postSchema);
