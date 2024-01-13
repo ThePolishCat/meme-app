@@ -30,8 +30,16 @@ const postSchema = new mongoose.Schema({
   },
   voters: [
     {
-      type: mongoose.Schema.Types.ObjectId,
-      ref: "User",
+      userId: {
+        type: mongoose.Schema.Types.ObjectId,
+        ref: "User",
+        required: true,
+      },
+      vote: {
+        type: String,
+        enum: ["plus", "minus"], // Enum to restrict the values to 'plus' or 'minus'
+        required: true,
+      },
     },
   ],
 });

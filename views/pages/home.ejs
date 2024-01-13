@@ -1,20 +1,20 @@
 <% let a = 0; %>
 <div class="article-container">
-  <% images.forEach(image => { if (a >= 10) return; a = a + 1; %>
+  <% posts.forEach(post => { if (a >= 10) return; a = a + 1; %>
   <div class="article">
-    <p><%= image.title %></p>
-    <img src="<%= image.path %>" alt="<%= image.title %>" />
-    <div class="vote" data-image-id="<%= image.id %>">
+    <p><%= post.title %></p>
+    <img src="<%= post.path %>" alt="<%= post.title %>" />
+    <div class="vote" data-post-id="<%= post.id %>">
       <button class="vote-button" data-vote="plus">&plus;</button>
       <div class="vote-count">
-        <span class="vote-upvote"><%= image.upvotes %></span>
+        <span class="vote-upvote"><%= post.upvotes %></span>
         /
-        <span class="vote-downvote"><%= image.downvotes %></span>
+        <span class="vote-downvote"><%= post.downvotes %></span>
       </div>
       <button class="vote-button" data-vote="minus">&minus;</button>
     </div>
     <% if (user && user.isAdmin) { %>
-    <form action="/admin/delete/<%= image.id %>" method="post">
+    <form action="/admin/delete/<%= post.id %>" method="post">
       <button type="submit">Delete</button>
     </form>
     <% } %>
@@ -25,16 +25,15 @@
 <script>
   $(document).ready(function () {
     $(".vote-button").click(function () {
-      const imageId = $(this).parent().data("image-id");
+      const postId = $(this).parent().data("post-id"); 
       const vote = $(this).data("vote");
-      const parentDiv = $(this).parent(); // Save a reference to the parent div
+      const parentDiv = $(this).parent();
 
       $.ajax({
         url: "/images/vote",
         method: "POST",
-        data: { imageId, vote },
+        data: { postId, vote },
         success: function (response) {
-          // Update the vote counts in the DOM using the saved reference
           parentDiv.find(".vote-upvote").text(response.upvotes);
           parentDiv.find(".vote-downvote").text(response.downvotes);
         },
