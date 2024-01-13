@@ -37,6 +37,7 @@ app.use(isAuthenticated);
 
 app.use('/uploads', express.static(path.join(__dirname, 'public/uploads')));
 
+app.set('views', __dirname + '/views');
 app.use("/", indexRoutes);
 app.use("/login", loginRoutes);
 app.use("/register", registerRoutes);
