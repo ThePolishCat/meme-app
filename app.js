@@ -45,7 +45,7 @@ app.use('/images', imageRoutes);
 app.use("/logout", logoutRoutes);
 app.set("view engine", "ejs");
 
-const PORT = process.env.PORT || 3000;
+const PORT = process.env.PORT || 8080;
 app.listen(PORT, () => {
   console.log(`Server is running on port ${PORT}`);
 });
