@@ -14,7 +14,7 @@ router.get("/", async (req, res) => {
     res.render("partials/layout.ejs", { body: "home", posts, page: 1 });
   } catch (error) {
     console.error(error);
-    res.status(500).send("Internal Server Error");
+    res.status(500).send(error);
   }
 });
 
