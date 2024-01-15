@@ -6,6 +6,7 @@ const session = require("express-session");
 const cookieParser = require("cookie-parser");
 const path = require('path');
 require('dotenv').config()
+require('./config/database');
 
 app.use(bodyParser.urlencoded({ extended: true }));
 app.use(express.static("public"));
@@ -17,8 +18,6 @@ app.use(
     saveUninitialized: true,
   })
 );
-
-require('./config/database');
 
 const indexRoutes = require("./routes/home");
 const loginRoutes = require("./routes/login");
@@ -36,8 +35,6 @@ function isAuthenticated(req, res, next) {
 app.use(isAuthenticated);
 
 app.use('/uploads', express.static(path.join(__dirname, 'public/uploads')));
-
-app.set('views', __dirname + '/views');
 app.use("/", indexRoutes);
 app.use("/login", loginRoutes);
 app.use("/register", registerRoutes);
